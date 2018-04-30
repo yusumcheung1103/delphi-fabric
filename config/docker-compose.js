@@ -27,7 +27,7 @@ const addOrdererService = (services, {ordererConfig, ordererEachConfig, MSPROOTV
             `${CONFIGTXVolume}:${CONFIGTX}`,
             `${MSPROOTVolume}:${MSPROOT}`],
         environment: [
-            'ORDERER_GENERAL_LOGLEVEL=debug',
+            'ORDERER_GENERAL_LOGLEVEL=critical',
             'ORDERER_GENERAL_LISTENADDRESS=0.0.0.0',// TODO useless checking
             `ORDERER_GENERAL_TLS_ENABLED=${TLS}`,
             'ORDERER_GENERAL_GENESISMETHOD=file',
@@ -129,7 +129,7 @@ exports.gen = ({
                 [
                     `CORE_VM_ENDPOINT=unix://${dockerSock}`,
                     `CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${network}`,
-                    'CORE_LOGGING_LEVEL=DEBUG',
+                    'CORE_LOGGING_LEVEL=critical',
                     'CORE_LEDGER_HISTORY_ENABLEHISTORYDATABASE=true',
                     'CORE_PEER_GOSSIP_USELEADERELECTION=true',
                     'CORE_PEER_GOSSIP_ORGLEADER=false',
