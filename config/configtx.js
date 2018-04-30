@@ -26,11 +26,11 @@ exports.gen = ({
             OrdererType: 'solo',
 
             Addresses: [`${ordererConfig.solo.container_name}:${ordererConfig.solo.portMap[7050]}`],
-            BatchTimeout: '1s',
+            BatchTimeout: '10s',
             BatchSize: {
-                MaxMessageCount: 1,
+                MaxMessageCount: 3000,
                 AbsoluteMaxBytes: '99 MB',
-                PreferredMaxBytes: '512 KB'
+                PreferredMaxBytes: '10 MB'
             },
             Organizations: [
                 {

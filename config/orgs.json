@@ -15,7 +15,7 @@
     }
   },
   "orderer": {
-    "type": "kafka",
+    "type": "solo",
     "genesis_block": {
       "file": "delphi.block",
       "profile": "delphiGenesis"
@@ -171,7 +171,7 @@
       ],
       "userCount": 0,
       "ca": {
-        "enable": true,
+        "enable": false,
         "admin": {
           "name": "CAadmin",
           "pass": "passwd"

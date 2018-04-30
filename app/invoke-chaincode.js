@@ -53,7 +53,7 @@ exports.invoke= (channel, richPeers, { chaincodeId, fcn, args }, client = channe
 
 
 exports.query= (channel, peers, { chaincodeId, fcn, args }, client = channel._clientContext) => {
-	logger.debug('query',{ channelName: channel.getName(), peersSize: peers.length, chaincodeId, fcn, args });
+	// logger.debug('query',{ channelName: channel.getName(), peersSize: peers.length, chaincodeId, fcn, args });
 	const txId = client.newTransactionID();
 
 	const request = {

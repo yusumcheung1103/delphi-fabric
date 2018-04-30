@@ -4,11 +4,11 @@ Profiles:
       OrdererType: solo
       Addresses:
         - 'orderContainerName:7050'
-      BatchTimeout: 2s
+      BatchTimeout: 10s
       BatchSize:
-        MaxMessageCount: 10
+        MaxMessageCount: 3000
         AbsoluteMaxBytes: 99 MB
-        PreferredMaxBytes: 512 KB
+        PreferredMaxBytes: 10 MB
       Organizations:
         - Name: OrdererMSPName
           ID: OrdererMSP

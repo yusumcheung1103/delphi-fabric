@@ -4,7 +4,7 @@ const instantiate = require('./instantiate-chaincode').instantiate
 const helper = require('./helper')
 const logger = require('./util/logger').new('testInstall')
 const chaincodeConfig = require('../config/chaincode.json')
-const chaincodeId = 'adminChaincode'
+const chaincodeId = 'stress';
 const ClientUtil = require('./util/client')
 
 const chaincodePath = chaincodeConfig.chaincodes[chaincodeId].path

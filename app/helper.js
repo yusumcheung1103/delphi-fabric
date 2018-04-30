@@ -339,7 +339,7 @@ exports.chaincodeProposalAdapter = (actionString, validator) => {
             const proposalResponse = responses[i];
             const {isValid, isSwallowed} = _validator(proposalResponse);
             if (isValid) {
-                logger.info(`${actionString} was good for [${i}]`, proposalResponse);
+                // logger.info(`${actionString} was good for [${i}]`, proposalResponse);
                 if (isSwallowed) {
                     swallowCounter++;
                 }
