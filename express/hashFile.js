@@ -19,7 +19,7 @@ const TKOrgName = 'TK.Teeking.com'
 const globalConfig = require('../config/orgs.json');
 const TKMSP = globalConfig.orgs['TK.Teeking.com'].MSP.id
 
-const baseUrl = 'http://192.168.3.72:8080/teeking-api/api';
+const baseUrl = 'http://192.168.3.97:8080/teeking-api/api';
 const errorHandle = (err, res) => {
 	const errorCodeMap = require('./errorCodeMap.json');
 
@@ -65,12 +65,13 @@ const oauthMiddleware = (req, res, next) => {
 	} else {
 		promise = promise.then(() => new Promise((resolve, reject) => {
 			Request.post({
-				url: `${baseUrl}/tokens`, formData: {
+				url: `${baseUrl}/tokens`, form: {
 					name: username, password
 				}
 			}, (err, resp, body) => {
 				if (err) return reject(err);
-				const {token, userid} = JSON.parse(body);
+				logger.debug('tokens','response',body)
+				const {data:{token}, userid} = JSON.parse(body);
 				res.locals.accessToken = token;
 				next();
 				return resolve();
@@ -89,7 +90,7 @@ const peerIndex = 0;
 router.post('/write', cache.array('files'), (req, res) => {
 	const {id, plain, toHash} = req.body;
 	let {accessToken} = res.locals;
-	if(!accessToken)accessToken = '';//FIXME
+	
 	const {org: orgName} = req.body;
 	logger.debug('write', {id, plain, toHash, orgName});
 
@@ -124,7 +125,7 @@ router.post('/write', cache.array('files'), (req, res) => {
 
 	const assetsRequest = () => new Promise((resolve, reject) => {
 		const form = {
-			accessToken, type:plain, data:toHash
+			token:accessToken, type:plain, data:toHash
 		};
 
 		Request.post({url: `${baseUrl}/blockchains`, form}, (err, resp, body) => {
