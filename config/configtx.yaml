@@ -37,4 +37,4 @@ Profiles:
             - Host: peer0.ASTRI.org
               Port: 7051
       Capabilities:
-        V1_2: true
+        V1_1: true

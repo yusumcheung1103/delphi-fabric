@@ -17,7 +17,7 @@ exports.install = async (peers, {chaincodeId, chaincodeVersion, chaincodeType}, 
 		const gopath = await golangUtil.getGOPATH();
 		chaincodePath = path.resolve(gopath, 'src', chaincodePath);
 	}
-	if (chaincodeType === 'golang') {
+	if (!chaincodeType || chaincodeType === 'golang') {
 		await golangUtil.setGOPATH();
 	}
 	return install(peers, {chaincodeId, chaincodePath, chaincodeVersion, chaincodeType}, client);
@@ -40,14 +40,11 @@ const configParser = (config) => {
 		result.endorsementPolicy = buildPolicy(endorsingConfigs);
 	}
 	if (collectionConfigs) {
-		const collectionSet = [];
 		for (const [name, config] of Object.entries(collectionConfigs)) {
 			const policy = buildPolicy(config.policy);
 			config.name = name;
 			config.policy = policy;
-			collectionSet.push(PolicyUtil.collectionConfig(config));
 		}
-		result.collectionConfig = collectionSet;
 	}
 	return result;
 
@@ -62,7 +59,7 @@ exports.instantiate = async (channel, richPeers, opts) => {
 	const eventHubs = [];
 
 	for (const peer of richPeers) {
-		const eventHub = EventHubUtil.newEventHub(channel, peer, true);
+		const eventHub = await peer.eventHub;
 		eventHubs.push(eventHub);
 	}
 
@@ -78,7 +75,7 @@ exports.upgrade = async (channel, richPeers, opts) => {
 	const eventHubs = [];
 
 	for (const peer of richPeers) {
-		const eventHub = EventHubUtil.newEventHub(channel, peer, true);
+		const eventHub = await peer.eventHub;
 		eventHubs.push(eventHub);
 	}
 	const allConfig = Object.assign(policyConfig, opts);
@@ -89,7 +86,7 @@ exports.invoke = async (channel, richPeers, {chaincodeId, fcn, args}, nonAdminUs
 	const {eventWaitTime} = channel;
 	const eventHubs = [];
 	for (const peer of richPeers) {
-		const eventHub = EventHubUtil.newEventHub(channel, peer, true);
+		const eventHub = await peer.eventHub;
 		eventHubs.push(eventHub);
 	}
 	const orderers = channel.getOrderers();

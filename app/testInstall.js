@@ -2,7 +2,7 @@ const { instantiate, install } = require('./chaincodeHelper');
 const helper = require('./helper');
 const logger = require('../common/nodejs/logger').new('testInstall');
 
-const chaincodeId = process.env.name ? process.env.name : 'node';
+const chaincodeId = process.env.name ? process.env.name : 'stress';
 const globalConfig = require('../config/orgs.json');
 const { channels } = globalConfig;
 
@@ -10,7 +10,7 @@ const instantiate_args = [];
 
 const chaincodeVersion = 'v0';
 const channelName = 'allchannel';
-const chaincodeType = 'node';
+const chaincodeType = '';
 //only one time, one org could deploy
 const deploy = async (orgName, peerIndexes) => {
 	const peers = helper.newPeers(peerIndexes, orgName);

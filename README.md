@@ -16,9 +16,9 @@ this script help to make docker command runnable without `sudo` prefix
 ----
  
 **Requirements & dependencies**
-  * fabric: 1.2.0 (for docker image, binary tool and fabric-sdk)
+  * fabric: 1.1.0 (for docker image, binary tool and fabric-sdk)
   * docker-ce 17.12.x-ce (API version 1.35)
-  * golang 1.10 
+  * golang 1.9 
   * node 8.10, npm 5.6 : npm install卡死的话，可以考虑添加淘宝的源
         - ``$ npm config set registry  https://registry.npm.taobao.org/``
   * java 1.8.0_151 (optional for java-sdk)
@@ -41,7 +41,6 @@ Major configuration
  we cluster most of the config in ``config/orgs.json``, enjoy!
  others:
   - swarm server: ``swarm/swarm.json``
-  - Restfull app: ``app/config.json``
   - chaincodes path: ``config/chaincode.json``  
 
 Test on single host

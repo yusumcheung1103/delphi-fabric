@@ -46,7 +46,7 @@ else
 
 	fabricTag=$(jq -r ".docker.fabricTag" $CONFIG_JSON)
 
-	./common/bin-manage/pull1_2.sh
+	./common/bin-manage/pullBIN.sh
 	npm install
 	if ! go version; then
 		$CURRENT/common/install.sh golang1_10

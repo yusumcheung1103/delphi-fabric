@@ -3,7 +3,7 @@ const { reducer } = require('../common/nodejs/chaincode');
 const helper = require('./helper');
 
 const logger = require('../common/nodejs/logger').new('testInvoke');
-const chaincodeId = process.env.name ? process.env.name : 'node';
+const chaincodeId = process.env.name ? process.env.name : 'stress';
 const fcn = '';
 const args = [];
 const globalConfig = require('../config/orgs.json');
@@ -13,7 +13,7 @@ const peerIndexes = [0];
 const channelName = 'allchannel';
 
 
-const { chaincodeEvent, newEventHub } = require('../common/nodejs/eventHub');
+const { chaincodeEvent } = require('../common/nodejs/eventHub');
 
 const { sleep } = require('../common/nodejs/helper');
 const task = async () => {
@@ -32,7 +32,7 @@ const getChaincodeEvent = async () => {
 	const peers = helper.newPeers(peerIndexes, orgName);
 	const client = await helper.getOrgAdmin(orgName);
 	const channel = helper.prepareChannel(channelName, client, true);
-	const eventHub = newEventHub(channel, peers[0], true);
+	const eventHub = await peers[0].eventHub;
 	const validator = (data) => {
 		logger.debug('default validator', data);
 		return { valid: true, interrupt: false };

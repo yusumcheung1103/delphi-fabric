@@ -1,8 +1,8 @@
 {
   "TLS": false,
   "docker": {
-    "fabricTag": "1.2.0",
-    "thirdPartyTag": "0.4.10",
+    "fabricTag": "1.1.0",
+    "thirdPartyTag": "0.4.6",
     "network": "delphiNetwork",
     "volumes": {
       "CONFIGTX": {
@@ -91,7 +91,7 @@
       "orgs": {
         "ASTRI.org": {
           "peerIndexes": [
-            0,1
+            0
           ]
         }
       }
@@ -102,11 +102,8 @@
       "peers": [
         {
           "container_name": "astri",
+          "eventHubPort": 7053,
           "port": 7051
-        },
-        {
-          "container_name": "astri1",
-          "port": 7151
         }
       ],
       "ca": {

@@ -12,9 +12,10 @@ const userUtil = require('../common/nodejs/user');
 const OrdererUtil = require('../common/nodejs/orderer');
 const channelUtil = require('../common/nodejs/channel');
 const {randomKeyOf} = require('../common/nodejs/helper');
+const EventHubUtil = require('../common/nodejs/eventHub');
 
 exports.preparePeer = (orgName, peerIndex, peerConfig) => {
-	const {port: peerPort} = peerConfig;
+	const {port: peerPort, eventHubPort} = peerConfig;
 
 	let peer;
 	const cryptoPath = new CryptoPath(CRYPTO_CONFIG_DIR,
@@ -28,6 +29,17 @@ exports.preparePeer = (orgName, peerIndex, peerConfig) => {
 	}
 	//NOTE append more info
 	peer.peerConfig = peerConfig;
+	// exports.new = (client, {eventHubPort, cert, pem, peerHostName, host = 'localhost'}) => {
+	const eventHubAsync = async () => {
+		const client = await exports.getOrgAdmin(orgName, 'peer');
+		if (globalConfig.TLS) {
+			const {caCert} = cryptoPath.TLSFile('peer');
+			return EventHubUtil.new(client, {eventHubPort, cert: caCert, peerHostName});
+		} else {
+			return EventHubUtil.new(client, {eventHubPort});
+		}
+	};
+	peer.eventHub = eventHubAsync();
 
 	peer.peerConfig.orgName = orgName;
 	peer.peerConfig.peerIndex = peerIndex;

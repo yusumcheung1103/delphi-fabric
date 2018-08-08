@@ -156,7 +156,7 @@ exports.runPeers = async (volumeName = {CONFIGTX: 'CONFIGTX', MSPROOT: 'MSPROOT'
 		const {MSP: {id}} = orgConfig;
 		for (const peerIndex in peersConfig) {
 			const peerConfig = peersConfig[peerIndex];
-			const {container_name, port} = peerConfig;
+			const {container_name, port, eventHubPort} = peerConfig;
 
 			if (tostop) {
 				if (swarm) {
@@ -183,7 +183,7 @@ exports.runPeers = async (volumeName = {CONFIGTX: 'CONFIGTX', MSPROOT: 'MSPROOT'
 				const Constraints = await constraintSelf();
 
 				const peer = await deployPeer({
-					Name: container_name, port, imageTag, network,
+					Name: container_name, port, imageTag, network, eventHubPort,
 					peerHostName,
 					msp: {
 						id,
@@ -197,7 +197,7 @@ exports.runPeers = async (volumeName = {CONFIGTX: 'CONFIGTX', MSPROOT: 'MSPROOT'
 				peers.push(peer);
 			} else {
 				await runPeer({
-					container_name, port, imageTag, network,
+					container_name, port, imageTag, network, eventHubPort,
 					peerHostName, tls,
 					msp: {
 						id,

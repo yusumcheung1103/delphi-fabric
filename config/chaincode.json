@@ -19,19 +19,6 @@
         "mspId": {
           "ASTRIMSP": false
         }
-      },
-      "collectionConfigs": {
-        "private1": {
-          "policy": {
-            "n": 1,
-            "mspId": {
-              "ASTRIMSP": false
-            }
-          },
-          "requiredPeerCount": 2,
-          "maxPeerCount": 2,
-          "blockToLive": 100
-        }
       }
     }
   }

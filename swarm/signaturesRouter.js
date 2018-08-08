@@ -130,7 +130,7 @@ router.post('/createOrUpdateOrg', multerCache.fields([{name: 'admins'}, {name: '
 			const client = await helper.getOrgAdmin(ramdomOrg, nodeType);
 			const channel = helper.prepareChannel(channelName, client, true);
 
-			const peerEventHub = EventHubUtil.newEventHub(channel, peer);
+			const peerEventHub = await peer.eventHub;
 			logger.debug('/createOrUpdateOrg', {channelName, MSPID, MSPName, nodeType}, {
 				admins,
 				root_certs,

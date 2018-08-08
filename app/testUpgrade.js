@@ -46,10 +46,10 @@ const task = async () => {
 		const peers = helper.newPeers([0], orgName);
 		const eventHubs = [];
 		for (const peer of peers) {
-			const eventHub = EventHubUtil.newEventHub(channel, peer);
+			const eventHub = await peer.eventHub;
 			eventHubs.push(eventHub);
 		}
-		await instantiateOrUpgrade('upgrade',channel, peers, eventHubs, {chaincodeId, chaincodeVersion, args});
+		await instantiateOrUpgrade('upgrade', channel, peers, eventHubs, {chaincodeId, chaincodeVersion, args});
 		//	NOTE: the old version chaincode container remains
 	} catch (e) {
 		logger.error(e);
